@@ -1,0 +1,63 @@
+---
+title: "10.26 HW"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# read.csv() 使???預設參數
+csv_url <- "https://storage.googleapis.com/ds_data_import/chicago_bulls_1995_1996.csv"
+csv_df <- read.csv(csv_url)
+View(csv_df)
+# read.csv() ??????指定變數的名稱
+csv_url <- "https://storage.googleapis.com/ds_data_import/chicago_bulls_1995_1996.csv"
+csv_df <- read.csv(csv_url, skip = 1, header = FALSE, col.names = c('number', 'player', 'pos', 'ht', 'wt', 'birth_date', 'college'))
+View(csv_df)
+
+# jsonlite::fromJSON() 函數載入 JSON 檔案
+if (!require(jsonlite)) {
+    install.packages("jsonlite")
+    library(jsonlite)
+}
+
+json_url <- "https://storage.googleapis.com/ds_data_import/chicago_bulls_1995_1996.json"
+chicago_bulls_list <- fromJSON(json_url)
+chicago_bulls_list
+
+# 計算勝率或者從先發陣容中選出最喜歡的球員
+winning_rate <- chicago_bulls_list$records$wins / (chicago_bulls_list$records$wins + chicago_bulls_list$records$losses)
+fav_player <- chicago_bulls_list$starting_lineups$SG
+sprintf("勝率為 %.2f", winning_rate)
+sprintf("最喜歡的球員是 %s", fav_player)
+
+# 安裝與載入套件
+install.packages("readxl") # 如果先前已經安裝過就不???執???這???
+library(readxl)`
+# 讀入
+file_path <- "/Users/username/favorite_bands.xlsx"
+favorite_bands <- read_excel(file_path)
+
+url <- "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/bezdekIris.data"
+iris_df <- read.table(___, header = ___, sep = "___")
